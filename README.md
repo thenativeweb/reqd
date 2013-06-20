@@ -4,9 +4,12 @@ dep searches repositories for dependencies.
 
 ## Installation
 
-At the moment, installation of this module must be made manually.
+At the moment, installation of this module must be made manually. From the directory where you have cloned dep to, run the following commands.
 
-    $ npm install -g git+ssh://git@github.com:thenativeweb/dep.git
+    $ npm pack
+    $ sudo npm install -g dep-0.0.1.tgz
+
+*Note: You may have to adjust the version number accordingly.*
 
 ## Quick start
 

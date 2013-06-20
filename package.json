@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "dep searches repositories for dependencies.",
   "author": "Golo Roden <golo.roden@thenativeweb.io> (http://www.thenativeweb.io)",
-  "main": "lib/dep.js",
-  "bin": "lib/dep.js",
+  "main": "app.js",
+  "bin": "app.js",
   "private": true,
   "dependencies": {
     "underscore": "1.4.4"
