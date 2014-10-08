@@ -10,7 +10,6 @@
   ],
   "main": "app.js",
   "bin": "app.js",
-  "private": true,
   "dependencies": {
     "lodash": "*"
   },
