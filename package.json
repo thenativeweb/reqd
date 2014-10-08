@@ -1,26 +1,27 @@
 {
-  "name": "dep",
+  "name": "reqd",
   "version": "0.0.1",
-  "description": "dep searches repositories for dependencies.",
-  "author": "Golo Roden <golo.roden@thenativeweb.io> (http://www.thenativeweb.io)",
+  "description": "reqd searches repositories for dependencies.",
+  "contributors": [
+    {
+      "name": "Golo Roden",
+      "email": "golo.roden@thenativeweb.io"
+    }
+  ],
   "main": "app.js",
   "bin": "app.js",
   "private": true,
   "dependencies": {
-    "underscore": "1.4.4"
+    "lodash": "*"
   },
   "devDependencies": {
-    "grunt": "0.4.0",
-    "grunt-contrib-jshint": "0.1.1",
-    "grunt-contrib-watch": "0.2.0",
-    "grunt-mocha-test": "0.2.0",
-    "node-assertthat": "0.0.19"
-  },
-  "scripts": {
-    "test": "mocha"
+    "grunt": "0.4.5",
+    "node-assertthat": "0.2.1",
+    "tourism": "0.7.3"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/thenativeweb/dep.git"
-  }
+    "url": "git://github.com/thenativeweb/reqd.git"
+  },
+  "license": "MIT"
 }
