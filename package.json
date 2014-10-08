@@ -11,7 +11,7 @@
   "main": "app.js",
   "bin": "app.js",
   "dependencies": {
-    "lodash": "*"
+    "lodash": "2.4.1"
   },
   "devDependencies": {
     "grunt": "0.4.5",
