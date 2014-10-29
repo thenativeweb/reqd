@@ -7,7 +7,7 @@ var fs = require('fs'),
 
 var _ = require('lodash');
 
-var dependency = process.argv[ 2 ];
+var dependency = process.argv[2];
 
 fs.readdir(process.cwd(), function (err, directories) {
   if (err) {
@@ -38,10 +38,16 @@ fs.readdir(process.cwd(), function (err, directories) {
         }
 
         configuration = require(packageJson);
-        if ((configuration.dependencies && configuration.dependencies[ dependency ]) ||
-            (configuration.devDependencies && configuration.devDependencies[ dependency ])) {
-          version = configuration.dependencies[ dependency ] || configuration.devDependencies[ dependency ];
 
+        if (configuration.devDependencies && configuration.devDependencies[dependency]) {
+          version = configuration.devDependencies[dependency];
+        }
+
+        if (configuration.dependencies && configuration.dependencies[dependency]) {
+          version = configuration.dependencies[dependency];
+        }
+
+        if (version) {
           console.log(directory + ' (' + version + ')');
         }
       });
