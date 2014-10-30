@@ -14,6 +14,14 @@ To use reqd simply call it within a directory and provide a module name.
 
 As a result `reqd` will give you a list of all sub-directories where the given module is either referenced as a `dependency` or as a `devDependency` in the appropriate `package.json` file.
 
+Please note that if you use tab completion, the module name may have a trailing slash accidentally. reqd will remove that automatically, so it's perfectly fine to run
+
+    $ reqd lodash/
+
+instead of the following command.
+
+    $ reqd lodash
+
 ## Running the build
 
 This module can be built using [Grunt](http://gruntjs.com/). Besides running the tests, this also analyses the code. To run Grunt, go to the folder where you have installed reqd and run `grunt`. You need to have [grunt-cli](https://github.com/gruntjs/grunt-cli) installed.

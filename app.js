@@ -7,7 +7,8 @@ var fs = require('fs'),
 
 var _ = require('lodash');
 
-var dependency = process.argv[2];
+// Get the dependency name and cut off a potential trailing slash.
+var dependency = process.argv[2].replace(/\/+$/, '');
 
 fs.readdir(process.cwd(), function (err, directories) {
   if (err) {
