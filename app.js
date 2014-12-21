@@ -23,11 +23,11 @@ fs.readdir(process.cwd(), function (err, directories) {
         return console.log(err);
       }
 
+      /*eslint-disable consistent-return*/
       if (!stats.isDirectory()) {
-        /*eslint-disable consistent-return*/
         return;
-        /*eslint-enable consistent-return*/
       }
+      /*eslint-enable consistent-return*/
 
       packageJson = path.join(process.cwd(), directory, 'package.json');
       fs.exists(packageJson, function (exists) {
