@@ -12,7 +12,9 @@ var dependency = process.argv[2].replace(/\/+$/, '');
 
 fs.readdir(process.cwd(), function (err, directories) {
   if (err) {
+    /*eslint-disable no-console*/
     return console.log(err);
+    /*eslint-enable no-console*/
   }
 
   _.each(directories, function (directory) {
@@ -20,7 +22,9 @@ fs.readdir(process.cwd(), function (err, directories) {
       var packageJson;
 
       if (err) {
+        /*eslint-disable no-console*/
         return console.log(err);
+        /*eslint-enable no-console*/
       }
 
       /*eslint-disable consistent-return*/
@@ -49,7 +53,9 @@ fs.readdir(process.cwd(), function (err, directories) {
         }
 
         if (version) {
+          /*eslint-disable no-console*/
           console.log(directory + ' (' + version + ')');
+          /*eslint-enable no-console*/
         }
       });
     });
