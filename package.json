@@ -9,6 +9,7 @@
     }
   ],
   "main": "app.js",
+  "preferglobal": true,
   "bin": "app.js",
   "dependencies": {
     "lodash": "2.4.1"
