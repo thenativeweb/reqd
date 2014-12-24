@@ -5,10 +5,30 @@
 var fs = require('fs'),
     path = require('path');
 
-var _ = require('lodash');
+var _ = require('lodash'),
+    program = require('commander'),
+    updateNotifier = require('update-notifier');
+
+var packageJson = require('./package.json');
+
+var dependency;
+
+updateNotifier({
+  packageName: packageJson.name,
+  packageVersion: packageJson.version
+}).notify();
+
+program
+  .version(packageJson.version)
+  .usage('<module> [options]')
+  .parse(process.argv);
+
+if (process.argv.length === 2) {
+  program.help();
+}
 
 // Get the dependency name and cut off a potential trailing slash.
-var dependency = process.argv[2].replace(/\/+$/, '');
+dependency = program.args[0].replace(/\/+$/, '');
 
 fs.readdir(process.cwd(), function (err, directories) {
   if (err) {

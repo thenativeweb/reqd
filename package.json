@@ -11,7 +11,9 @@
   "main": "app.js",
   "bin": "app.js",
   "dependencies": {
-    "lodash": "2.4.1"
+    "commander": "2.5.1",
+    "lodash": "2.4.1",
+    "update-notifier": "0.2.2"
   },
   "devDependencies": {
     "grunt": "0.4.5",
