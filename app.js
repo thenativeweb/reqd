@@ -9,17 +9,17 @@ var _ = require('lodash'),
     program = require('commander'),
     updateNotifier = require('update-notifier');
 
-var packageJson = require('./package.json');
+var reqdPackageJson = require('./package.json');
 
 var dependency;
 
 updateNotifier({
-  packageName: packageJson.name,
-  packageVersion: packageJson.version
+  packageName: reqdPackageJson.name,
+  packageVersion: reqdPackageJson.version
 }).notify();
 
 program
-  .version(packageJson.version)
+  .version(reqdPackageJson.version)
   .usage('<module> [options]')
   .parse(process.argv);
 
