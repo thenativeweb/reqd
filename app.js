@@ -2,67 +2,65 @@
 
 'use strict';
 
-var fs = require('fs'),
-    path = require('path');
+const fs = require('fs'),
+      path = require('path');
 
-var _ = require('lodash'),
-    program = require('commander'),
-    updateNotifier = require('update-notifier');
+const _ = require('lodash'),
+      program = require('commander'),
+      updateNotifier = require('update-notifier');
 
-var reqdPackageJson = require('./package.json');
-
-var dependency;
+const reqdPackageJson = require('./package.json');
 
 updateNotifier({
   packageName: reqdPackageJson.name,
   packageVersion: reqdPackageJson.version
 }).notify();
 
-program
-  .version(reqdPackageJson.version)
-  .usage('<module> [options]')
-  .parse(process.argv);
+program.
+  version(reqdPackageJson.version).
+  usage('<module> [options]').
+  parse(process.argv);
 
 if (process.argv.length === 2) {
   program.help();
 }
 
 // Get the dependency name and cut off a potential trailing slash.
-dependency = program.args[0].replace(/\/+$/, '');
+const dependency = program.args[0].replace(/\/+$/, '');
 
-fs.readdir(process.cwd(), function (err, directories) {
-  if (err) {
-    /*eslint-disable no-console*/
-    return console.log(err);
-    /*eslint-enable no-console*/
+fs.readdir(process.cwd(), (errReaddir, directories) => {
+  if (errReaddir) {
+    /* eslint-disable no-console */
+    return console.log(errReaddir);
+    /* eslint-enable no-console */
   }
 
-  _.each(directories, function (directory) {
-    fs.stat(directory, function (err, stats) {
-      var packageJson;
-
-      if (err) {
-        /*eslint-disable no-console*/
-        return console.log(err);
-        /*eslint-enable no-console*/
+  _.each(directories, directory => {
+    fs.stat(directory, (errStat, stats) => {
+      if (errStat) {
+        /* eslint-disable no-console */
+        return console.log(errStat);
+        /* eslint-enable no-console */
       }
 
-      /*eslint-disable consistent-return*/
+      /* eslint-disable consistent-return */
       if (!stats.isDirectory()) {
         return;
       }
-      /*eslint-enable consistent-return*/
+      /* eslint-enable consistent-return */
 
-      packageJson = path.join(process.cwd(), directory, 'package.json');
-      fs.exists(packageJson, function (exists) {
-        var configuration,
-            version;
+      const packageJson = path.join(process.cwd(), directory, 'package.json');
 
+      fs.exists(packageJson, exists => {
         if (!exists) {
           return;
         }
 
-        configuration = require(packageJson);
+        /* eslint-disable global-require */
+        const configuration = require(packageJson);
+        /* eslint-enable global-require */
+
+        let version;
 
         if (configuration.devDependencies && configuration.devDependencies[dependency]) {
           version = configuration.devDependencies[dependency];
@@ -73,9 +71,9 @@ fs.readdir(process.cwd(), function (err, directories) {
         }
 
         if (version) {
-          /*eslint-disable no-console*/
-          console.log(directory + ' (' + version + ')');
-          /*eslint-enable no-console*/
+          /* eslint-disable no-console */
+          console.log(`${directory} (${version})`);
+          /* eslint-enable no-console */
         }
       });
     });
