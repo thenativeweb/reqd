@@ -18,6 +18,7 @@ updateNotifier({
 
 program.
   version(reqdPackageJson.version).
+  description(reqdPackageJson.description).
   usage('<module> [options]').
   parse(process.argv);
 
