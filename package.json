@@ -8,15 +8,17 @@
       "email": "golo.roden@thenativeweb.io"
     }
   ],
-  "main": "app.js",
-  "bin": "app.js",
+  "bin": {
+    "reqd": "bin/reqd.js"
+  },
   "dependencies": {
+    "async": "2.0.1",
+    "buntstift": "0.4.0",
     "commander": "2.9.0",
-    "lodash": "4.14.0",
     "update-notifier": "1.0.2"
   },
   "devDependencies": {
-    "roboter": "0.11.9"
+    "roboter": "0.11.14"
   },
   "repository": {
     "type": "git",

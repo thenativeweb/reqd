@@ -5,11 +5,12 @@
 const fs = require('fs'),
       path = require('path');
 
-const _ = require('lodash'),
+const async = require('async'),
+      buntstift = require('buntstift'),
       program = require('commander'),
       updateNotifier = require('update-notifier');
 
-const reqdPackageJson = require('./package.json');
+const reqdPackageJson = require('../package.json');
 
 updateNotifier({
   packageName: reqdPackageJson.name,
@@ -31,30 +32,28 @@ const dependency = program.args[0].replace(/\/+$/, '');
 
 fs.readdir(process.cwd(), (errReaddir, directories) => {
   if (errReaddir) {
-    /* eslint-disable no-console */
-    return console.log(errReaddir);
-    /* eslint-enable no-console */
+    buntstift.error('Failed to read directory.');
+    buntstift.exit(1);
   }
 
-  _.each(directories, directory => {
+  let isDependencyUsed = false;
+
+  async.eachSeries(directories, (directory, done) => {
     fs.stat(directory, (errStat, stats) => {
       if (errStat) {
-        /* eslint-disable no-console */
-        return console.log(errStat);
-        /* eslint-enable no-console */
+        buntstift.error('Failed to get stats.');
+        buntstift.exit(1);
       }
 
-      /* eslint-disable consistent-return */
       if (!stats.isDirectory()) {
-        return;
+        return done(null);
       }
-      /* eslint-enable consistent-return */
 
       const packageJson = path.join(process.cwd(), directory, 'package.json');
 
       fs.exists(packageJson, exists => {
         if (!exists) {
-          return;
+          return done(null);
         }
 
         /* eslint-disable global-require */
@@ -72,11 +71,28 @@ fs.readdir(process.cwd(), (errReaddir, directories) => {
         }
 
         if (version) {
-          /* eslint-disable no-console */
-          console.log(`${directory} (${version})`);
-          /* eslint-enable no-console */
+          if (!isDependencyUsed) {
+            buntstift.success(`The following modules use ${dependency}.`);
+            buntstift.newLine();
+            isDependencyUsed = true;
+          }
+
+          buntstift.list(`${directory} (${version})`);
         }
+
+        done(null);
       });
     });
+  }, err => {
+    if (err) {
+      buntstift.error(err.message);
+      buntstift.exit(1);
+    }
+    if (!isDependencyUsed) {
+      buntstift.error(`There is no module using ${dependency}.`);
+      buntstift.exit(1);
+    }
+
+    buntstift.exit();
   });
 });
